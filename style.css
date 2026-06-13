@@ -12,6 +12,12 @@
 
 * { box-sizing: border-box; }
 
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
 body {
   margin: 0;
   background: var(--bg);
@@ -63,6 +69,10 @@ a { color: var(--accent-2); }
   -webkit-text-fill-color: transparent;
 }
 
+@media (forced-colors: active) {
+  .hero h1 .grad { background: none; -webkit-text-fill-color: currentColor; }
+}
+
 .lede {
   max-width: 660px;
   margin: 0 auto 20px;
@@ -73,7 +83,7 @@ a { color: var(--accent-2); }
 .byline {
   max-width: 660px;
   margin: 0 auto;
-  font-size: 19px;
+  font-size: 17px;
   color: var(--text-dim);
 }
 
@@ -88,12 +98,13 @@ a { color: var(--accent-2); }
 }
 
 .chips a {
-  color: var(--text-dim);
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.03);
   text-decoration: none;
   font-size: 14px;
   border: 1px solid var(--border);
   border-radius: 999px;
-  padding: 5px 14px;
+  padding: 7px 14px;
   transition: color 0.15s ease, border-color 0.15s ease;
 }
 
@@ -107,6 +118,8 @@ section { padding: 40px 24px; }
   font-size: clamp(22px, 3vw, 30px);
   margin-bottom: 8px;
 }
+
+.capability { scroll-margin-top: 24px; }
 
 .capability > p {
   color: var(--text-dim);

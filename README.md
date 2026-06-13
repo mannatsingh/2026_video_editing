@@ -2,7 +2,7 @@
 
 A personally curated compilation (by Mannat Singh) of video editing examples and
 capabilities from the publicly available feature on Meta AI and Instagram Edits,
-as of June 2026.
+as of May 2026.
 
 Based on the [announcement thread on X](https://x.com/mannat_singh/status/2058042276480499959).
 

@@ -1,7 +1,7 @@
-# Video Editing in Meta AI
+# Fast high-fidelity video editing
 
-Showcase website for the video editing model in Meta AI — high-fidelity edits of videos
-up to 10 seconds, generated in under 30 seconds with no usage limits.
+A personally curated compilation (by Mannat Singh) of video editing examples and
+capabilities from the publicly available model on Meta AI and Instagram Edits.
 
 Based on the [announcement thread on X](https://x.com/mannat_singh/status/2058042276480499959).
 

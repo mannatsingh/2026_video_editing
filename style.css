@@ -71,9 +71,9 @@ a { color: var(--accent-2); }
 }
 
 .byline {
-  max-width: 640px;
+  max-width: 660px;
   margin: 0 auto;
-  font-size: 14px;
+  font-size: 19px;
   color: var(--text-dim);
 }
 

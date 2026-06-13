@@ -8,7 +8,7 @@ Based on the [announcement thread on X](https://x.com/mannat_singh/status/205804
 ## Structure
 
 - `index.html` / `style.css` — static site, no build step or dependencies
-- `videos/` — demo recording and 4 example videos per capability (original left, edit right)
+- `videos/` — example videos per capability (original left, edit right)
 - `posters/` — first-frame JPEGs used as video posters while the videos lazy-load
 
 ## Local preview

@@ -64,7 +64,7 @@ a { color: var(--accent-2); }
 }
 
 .lede {
-  max-width: 560px;
+  max-width: 660px;
   margin: 0 auto 20px;
   font-size: 19px;
   color: var(--text);

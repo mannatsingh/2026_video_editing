@@ -46,6 +46,11 @@ a { color: var(--accent-2); }
   border-bottom: 1px solid var(--border);
 }
 
+.thread-link {
+  margin: 16px auto 0;
+  font-size: 15px;
+}
+
 .eyebrow {
   text-transform: uppercase;
   letter-spacing: 0.12em;

@@ -48,9 +48,9 @@
     prompt that produced it.
   </p>
   <div class="grid grid-2">
-    <video class="lazy" muted loop playsinline preload="none" poster="posters/intro_1.jpg" data-src="videos/intro_1.mp4"></video>
-    <video class="lazy" muted loop playsinline preload="none" poster="posters/intro_2.jpg" data-src="videos/intro_2.mp4"></video>
-    <video class="lazy" muted loop playsinline preload="none" poster="posters/intro_3.jpg" data-src="videos/intro_3.mp4"></video>
+    <video class="lazy" muted loop playsinline preload="none" poster="posters/intro_1.jpg" data-silent data-src="videos/intro_1.mp4"></video>
+    <video class="lazy" muted loop playsinline preload="none" poster="posters/intro_2.jpg" data-silent data-src="videos/intro_2.mp4"></video>
+    <video class="lazy" muted loop playsinline preload="none" poster="posters/intro_3.jpg" data-silent data-src="videos/intro_3.mp4"></video>
   </div>
 </section>
 
@@ -146,10 +146,10 @@
   <h2><span class="emoji">🎬</span> Changing actions</h2>
   <p>Modify the movements or activities of subjects in the video, enabling fine-tuned adjustments to how characters are behaving or interacting within the scene. Note that this is hit-or-miss and may not work well for various videos and/or prompts.</p>
   <div class="grid grid-2">
-    <video class="lazy" muted loop playsinline preload="none" poster="posters/actions_1.jpg" data-src="videos/actions_1.mp4"></video>
-    <video class="lazy" muted loop playsinline preload="none" poster="posters/actions_2.jpg" data-src="videos/actions_2.mp4"></video>
-    <video class="lazy" muted loop playsinline preload="none" poster="posters/actions_3.jpg" data-src="videos/actions_3.mp4"></video>
-    <video class="lazy" muted loop playsinline preload="none" poster="posters/actions_4.jpg" data-src="videos/actions_4.mp4"></video>
+    <video class="lazy" muted loop playsinline preload="none" poster="posters/actions_1.jpg" data-silent data-src="videos/actions_1.mp4"></video>
+    <video class="lazy" muted loop playsinline preload="none" poster="posters/actions_2.jpg" data-silent data-src="videos/actions_2.mp4"></video>
+    <video class="lazy" muted loop playsinline preload="none" poster="posters/actions_3.jpg" data-silent data-src="videos/actions_3.mp4"></video>
+    <video class="lazy" muted loop playsinline preload="none" poster="posters/actions_4.jpg" data-silent data-src="videos/actions_4.mp4"></video>
   </div>
 </section>
 
@@ -209,9 +209,45 @@ const observer = new IntersectionObserver((entries) => {
     }
   }
 }, { rootMargin: '200px 0px' });
+
+// Videos play muted by default; a speaker toggle unmutes one video at a
+// time. Videos marked data-silent have no audio track and get no toggle.
+const ICON_MUTED = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3z" fill="currentColor"/><path d="M16.5 9.5l5 5m0-5l-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+const ICON_SOUND = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M16.5 12c0-1.8-1-3.3-2.5-4v8c1.5-.7 2.5-2.2 2.5-4z"/><path d="M14 3.2v2.1c2.9.9 5 3.5 5 6.7s-2.1 5.8-5 6.7v2.1c4-.9 7-4.5 7-8.8s-3-7.9-7-8.8z"/></svg>';
+
+function setMuteButton(btn, muted) {
+  btn.innerHTML = muted ? ICON_MUTED : ICON_SOUND;
+  btn.setAttribute('aria-label', muted ? 'Unmute' : 'Mute');
+}
+
+function muteAll() {
+  document.querySelectorAll('video.lazy').forEach((v) => { v.muted = true; });
+  document.querySelectorAll('.mute-btn').forEach((b) => setMuteButton(b, true));
+}
+
 lazyVideos.forEach((v) => {
   observer.observe(v);
   v.addEventListener('click', () => { v.paused ? v.play() : v.pause(); });
+  if (v.dataset.silent !== undefined) return;
+  const wrap = document.createElement('div');
+  wrap.className = 'vwrap';
+  v.parentNode.insertBefore(wrap, v);
+  wrap.appendChild(v);
+  const btn = document.createElement('button');
+  btn.className = 'mute-btn';
+  btn.type = 'button';
+  setMuteButton(btn, true);
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const unmute = v.muted;
+    muteAll();
+    if (unmute) {
+      v.muted = false;
+      setMuteButton(btn, false);
+      v.play().catch(() => {});
+    }
+  });
+  wrap.appendChild(btn);
 });
 </script>
 
